@@ -74,7 +74,7 @@ module.exports = {
       where: { id: clientId },
     });
 
-    return clientId
+    return deletedClient
       ? res.status(200).json({ msg: 'Cliente excluído com sucesso.' })
       : res.status(404).json({ msg: 'Cliente não encontrado.' });
   },
