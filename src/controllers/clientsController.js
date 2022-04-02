@@ -1,6 +1,6 @@
 const Client = require('../models/Client');
 const Sequelize = require('sequelize');
-import { cnpj as cnpjValidator } from 'cpf-cnpj-validator'; // https://www.npmjs.com/package/cpf-cnpj-validator
+const cnpjValidator = require('cpf-cnpj-validator').cnpj; // https://www.npmjs.com/package/cpf-cnpj-validator
 
 module.exports = {
   async newClient(req, res) {
@@ -45,6 +45,17 @@ module.exports = {
     if (!clientId) return res.status(400).json({ msg: 'Parâmetro id está vazio.' });
 
     const client = await Client.findByPk(clientId);
+
+    return client ? res.status(200).json({ client }) : res.status(404).json({ msg: 'Cliente não encontrado.' });
+  },
+
+  async searchClientByCNPJ(req, res) {
+    const { cnpj } = req.body;
+    if (!cnpj) return res.status(400).json({ msg: 'Informe um CNPJ válido.' });
+
+    const client = await Client.findOne({ where: { cnpj } }).catch((err) => {
+      return res.status(500).json({ msg: 'Falha na conexão.' });
+    });
 
     return client ? res.status(200).json({ client }) : res.status(404).json({ msg: 'Cliente não encontrado.' });
   },
