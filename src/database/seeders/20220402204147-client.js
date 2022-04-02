@@ -1,24 +1,26 @@
 'use strict';
 
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+  async up(queryInterface, Sequelize) {
+    await queryInterface.bulkInsert(
+      'Client',
+      [
+        {
+          company: 'Fanáticos por Whatsapp 2',
+          cnpj: '87.437.710/0001-61',
+          address: 'R. Dr. Alcides Vieira Arcoverde, 1225 - Jardim das Américas, Curitiba - PR, 81520-260',
+        },
+        {
+          company: 'Inimigos do Whatsapp 2',
+          cnpj: '07.170.965/0001-71',
+          address: 'R. Imac. Conceição, 1155 - Prado Velho, Curitiba - PR, 80215-901',
+        },
+      ],
+      {}
+    );
   },
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-  }
+  async down(queryInterface, Sequelize) {
+    await queryInterface.bulkInsert('Client', null, {});
+  },
 };
