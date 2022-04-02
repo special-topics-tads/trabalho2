@@ -15,6 +15,11 @@ module.exports = {
           cnpj: '07.170.965/0001-71',
           address: 'R. Imac. Conceição, 1155 - Prado Velho, Curitiba - PR, 80215-901',
         },
+        {
+          company: 'Whatsapp 3',
+          cnpj: '13.347.016/0001-17',
+          address: 'Menlo Park, California, United States',
+        },
       ],
       {}
     );
