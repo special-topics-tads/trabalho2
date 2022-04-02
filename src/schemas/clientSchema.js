@@ -7,7 +7,7 @@ const clientSchema = Joi.object().keys({
     .min(8)
     .pattern(/^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/i) // XX.XXX.XXX/XXXX-XX
     .required(),
-  address: Joi.string(),
+  address: Joi.string().required(),
 });
 
 module.exports = clientSchema;
