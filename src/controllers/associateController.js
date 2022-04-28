@@ -44,7 +44,7 @@ module.exports = {
 					return res.status(404).json({ msg: "Usuário ou senha inválidos." });
 			}
 		} catch (error) {
-			res.status(500).json(error);
+			res.status(500).json({msg : error});
 		}
 	},
 
