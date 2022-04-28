@@ -1,12 +1,12 @@
-# Gestor médico
+# Trabalho 2
 
 ## Comandos para rodar o projeto
 ```
 Clone o repositório usando esse comando
-$ git clone https://github.com/LeonardoZanotti/nodejs-files.git
+$ git clone https://github.com/special-topics-tads/trabalho2
 
 Entrar na pasta do projeto
-$ cd nodejs-files/Medical\ manager
+$ cd trabalho2
 
 Instalar dependências
 $ npm install
