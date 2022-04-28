@@ -7,9 +7,9 @@ const auth = require("../middlewares/auth");
 associateRouter.post("/authentication", validator, associateController.authentication);
 
 associateRouter.post('/newAssociate', validator, associateController.newAssociate);
-associateRouter.get('/listAll', auth, validator, associateController.listAll);
-associateRouter.get('/searchAssociateByName', auth, validator, associateController.searchAssociateByName);
-associateRouter.put('/updateAssociate/:_cnpj', auth, validator, associateController.updateAssociate);
-associateRouter.delete('/deleteAssociate/:_cnpj', validator, associateController.deleteAssociate);
+associateRouter.get('/listAll', validator, associateController.listAll);
+associateRouter.post('/searchAssociateByName', validator, associateController.searchAssociateByName);
+associateRouter.put('/updateAssociate', validator, associateController.updateAssociate);
+associateRouter.delete('/deleteAssociate', validator, associateController.deleteAssociate);
 
 module.exports = associateRouter;

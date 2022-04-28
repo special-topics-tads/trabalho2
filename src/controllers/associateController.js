@@ -88,10 +88,10 @@ module.exports = {
   },
 
   async searchAssociateByName(req, res) {
-    const { associateName } = req.body;
-    if (!associateName) return res.status(400).json({ msg: 'Informe um Nome.' });
+    const company = req.body.company;
+    if (!company) return res.status(400).json({ msg: 'Informe um Nome.' });
 
-    const associate = await Associate.findOne({ where: { associateName } }).catch((err) => {
+    const associate = await Associate.findOne({ where: { company: company } }).catch((err) => {
       return res.status(500).json({ msg: 'Falha na conexão.' });
     });
 
@@ -99,19 +99,19 @@ module.exports = {
   },
 
   async updateAssociate(req, res) {
-    const _cnpj = req.params;
+    const _cnpjUpdate = req.body._cnpjUpdate;
     const associate = req.body;
-    if (!_cnpj) return res.status(400).json({ msg: 'CNPJ do cliente está vazio.' });
-    if (!cnpjValidator.isValid(_cnpj)) return res.status(400).json({ msg: 'CNPJ inválido.' });
+    if (!_cnpjUpdate) return res.status(400).json({ msg: 'CNPJ do cliente está vazio.' });
+    if (!cnpjValidator.isValid(_cnpjUpdate)) return res.status(400).json({ msg: 'CNPJ inválido.' });
     else {
-      const searchAssociate = await Associate.findOne({ where: { _cnpj } }).catch((err) => {
+      const searchAssociate = await Associate.findOne({ where: { cnpj: _cnpjUpdate } }).catch((err) => {
         return res.status(500).json({ msg: 'Falha na conexão.' });
       });
       if (!searchAssociate) return res.status(404).json({ msg: 'Associado não encontrado.' });
-      if (!associate.company || !associate.cnpj || !associate.password) {
+      if (associate.company || associate.cnpj || associate.password) {
         if (!cnpjValidator.isValid(associate.cnpj)) return res.status(400).json({ msg: 'CNPJ inválido.' });
         await Associate.update(associate, {
-          where: { cnpj: _cnpj },
+          where: { cnpj: _cnpjUpdate },
         });
         return res.status(200).json({ msg: 'Associado atualizado com sucesso.' });
       }
@@ -120,12 +120,12 @@ module.exports = {
   },
 
   async deleteAssociate(req, res, next) {
-    const _cnpj = req.params;
+    const cnpj = req.body.cnpj;
 
-    if (!_cnpj) return res.status(400).json({ msg: 'CNPJ do associado está vazio.' });
+    if (!cnpj) return res.status(400).json({ msg: 'CNPJ do associado está vazio.' });
 
     const deletedAssociate = await Associate.destroy({
-      where: { cnpj: _cnpj },
+      where: { cnpj: cnpj },
     });
 
     return deletedAssociate
