@@ -20,9 +20,9 @@ function newAssociateValidator (req) {
 	else return { validator: true, error, value };
 }
 
-function generateToken(id) {
+function generateToken(cnpj) {
 	process.env.JWT_SECRET = Math.random().toString(36).slice(-20);
-	const token = jwt.sign({ id }, process.env.JWT_SECRET, {expiresIn: 82800, }); // Token expira em 24 horas
+	const token = jwt.sign({ cnpj }, process.env.JWT_SECRET, {expiresIn: 82800, }); // Token expira em 24 horas
 	return token;
 }
 
@@ -34,10 +34,10 @@ module.exports = {
 				where: { cnpj },
 			});
 			if (!associate)
-				return res.status(404).json({ msg: "Usuário ou senha inválidos!" });
+				return res.status(404).json({ msg: "CNPJ não encontrado!" });
 			else {
 				if (bcrypt.compareSync(password, associate.password)) {
-					const token = generateToken(associate.id);
+					const token = generateToken(associate.cnpj);
 					return res.status(200).json({ msg: "Autenticado com sucesso", token });
 				}
 				else
